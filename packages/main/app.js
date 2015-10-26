@@ -9,8 +9,9 @@ var morgan 			= require('morgan');
 var qs				= require('qs');
 
 //Globals
-var publicPath  	= path.join(__dirname, '../public');
+var publicPath  	= path.join(__dirname, '../main/public');
 var basePath 		= path.join(publicPath + '/views/');
+console.log(basePath);
 
 //Set View Engine
 //var engines 		= require('consolidate');
