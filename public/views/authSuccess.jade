@@ -12,7 +12,8 @@ html
     a(href='fetch/0/5') Fetch Articles
 
     script(type="text/javascript").
-      window.auth = {
+      window.SM   = SM || {};
+      SM.auth = {
         'consumer_key': '#{consumer_key}',
         'access_token': '#{access_token}',
         'username': '#{username}'

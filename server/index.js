@@ -5,6 +5,7 @@ var app 			= express();
 var path 			= require('path');
 var request 		= require('request');
 var session 		= require('express-session')
+var morgan 			= require('morgan');
 var qs				= require('qs');
 
 //Globals
@@ -24,10 +25,6 @@ var redirect_uri  	= 'http://socialmonster.com/authSuccess';
 var token;
 
 //Middleware
-function gennid(req){
-	return Math.random() * (9999999 - 10000000) + 10000000;
-}
-
 app.use(express.static(publicPath));
 app.use(express.static(basePath));
 app.use(session({
@@ -35,7 +32,8 @@ app.use(session({
   	return 'express_session';
   },
   secret: 'mydogisalphand1yearold'
-}))
+}));
+app.use(morgan('dev', {}));
 
 //Routes
 app.route('/').get(home);
@@ -46,8 +44,6 @@ app.route('/fetch/:search?/:count?')
 	.get(fetchArticles);
 
 function fetchArticles(req, res){
-	console.log(req.params);
-
 	var search_term  = req.params.search;
 	var count 		 = req.params.count;
 	
@@ -65,12 +61,14 @@ function fetchArticles(req, res){
 			access_token: access_token
 		}
 	}
+
+	req_obj.form.detailType = 'complete';	//Tags and all info or just titles and urls?
 	if(typeof search_term !== 'undefined' && search_term !== '0') req_obj.form.search = search_term;
 	if(typeof count !== 'undefined') req_obj.form.count = count;
 
 	request.post(req_obj, function(err, r, data){
-		var articles =  {"articles": data};
-		res.render('articles', articles);
+		var data = JSON.parse(data);
+		res.render('articles', data);
 	});
 }
 

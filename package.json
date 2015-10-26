@@ -16,5 +16,8 @@
     "node-pocket": "^0.9.4",
     "qs": "^5.2.0",
     "request": "^2.65.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.6.1"
   }
 }

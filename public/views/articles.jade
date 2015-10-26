@@ -1,10 +1,17 @@
 html
   head
     title= 'Articles'
+    script.
+      window.list = !{JSON.stringify(list)};
+      debugger;
   body
     h1= 'Articles'
     
-    each article in articles
-      li article
-
-    
+    ul
+      each article in list
+        li 
+          a(href=article.resolved_url) !{article.resolved_title}
+          if article.tags
+            p.tags= 'tags: '
+              each tag, tagName in article.tags
+                span= tagName + ' / '
