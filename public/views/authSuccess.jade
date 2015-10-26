@@ -4,14 +4,20 @@ html
   body
     h1= 'Auth Success'
 
+    p!= 'consumer key: '  + consumer_key
     p!= 'access token: '  + access_token
     p!= 'username: ' + username
 
+    //- a(href='fetch/'+access_token) /fetch/:#{access_token}
+    a(href='fetch/0/5') Fetch Articles
+
     script(type="text/javascript").
       window.auth = {
+        'consumer_key': '#{consumer_key}',
         'access_token': '#{access_token}',
         'username': '#{username}'
       }
-
+      
+      window.localStorage.setItem('consumer_key', auth.consumer_key);
       window.localStorage.setItem('access_token', auth.access_token);
       window.localStorage.setItem('username', auth.username);
