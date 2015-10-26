@@ -1,0 +1,17 @@
+html
+  head
+    title= 'Auth Success'
+  body
+    h1= 'Auth Success'
+
+    p!= 'access token: '  + access_token
+    p!= 'username: ' + username
+
+    script(type="text/javascript").
+      window.auth = {
+        'access_token': '#{access_token}',
+        'username': '#{username}'
+      }
+
+      window.localStorage.setItem('access_token', auth.access_token);
+      window.localStorage.setItem('username', auth.username);
